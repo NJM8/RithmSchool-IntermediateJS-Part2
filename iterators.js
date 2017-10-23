@@ -114,6 +114,179 @@ function reduceAddKeyAndValue(array, key, value){
 console.log(reduceAddKeyAndValue([{name: 'Elie'},{name: 'Tim'},{name: 'Elie'}], "isInstructor", true));
 
 
+// final exercises Part 1
+
+var users = [
+{
+  username: "larry",
+  email: "larry@foo.com",
+  yearsExperience: 22.1,
+  favoriteLanguages: ["Perl", "Java", "C++"],
+  favoriteEditor: "Vim",
+  hobbies: ["Fishing", "Sailing", "Hiking"],
+  hometown: {
+    city: "San Francisco",
+    state: "CA"
+  }
+},
+{
+  username: "jane",
+  email: "jane@test.com",
+  yearsExperience: 33.9,
+  favoriteLanguages: ["Haskell", "Clojure", "PHP"],
+  favoriteEditor: "Emacs",
+  hobbies: ["Swimming", "Biking", "Hiking"],
+  hometown: {
+    city: "New York",
+    state: "NY"
+  }
+},
+{
+  username: "sam",
+  email: "sam@test.com",
+  yearsExperience: 8.2,
+  favoriteLanguages: ["JavaScript","Ruby", "Python", "Go"],
+  favoriteEditor: "Atom",
+  hobbies: ["Golf", "Cooking", "Archery"],
+  hometown: {
+    city: "Fargo",
+    state: "SD"
+  }
+},
+{
+  username: "anne",
+  email: "anne@test.com",
+  yearsExperience: 4,
+  favoriteLanguages: ["C#", "C++", "F#"],
+  favoriteEditor: "Visual Studio Code",
+  hobbies: ["Tennis", "Biking", "Archery"],
+  hometown: {
+    city: "Albany",
+    state: "NY"
+  }
+},
+{
+  username: "david",
+  email: "david@test.com",
+  yearsExperience: 12.5,
+  favoriteLanguages: ["JavaScript", "C#", "Swift"],
+  favoriteEditor: "Sublime Text",
+  hobbies: ["Volunteering", "Biking", "Coding"],
+  hometown: {
+    city: "Los Angeles",
+    state: "CA"
+  }
+}
+]
+
+// Write a function called printEmails which console.log's each email for the users.
+
+function printEmails(array){
+	array.forEach(function(element){
+		console.log(element.email);
+	})
+}
+
+printEmails(users);
+
+// Write a function called printHobbies which console.log's each hobby for each user.
+
+function printHobbies(array){
+	array.forEach(function(element){
+		element.hobbies.forEach(function(element){
+			console.log(element);
+		})
+	})
+}
+
+printHobbies(users);
+
+// Write a function called findHometownByState which returns the first user which has a hometown of the state that is passed in
+
+function findHometownByState(array, state){
+	return array.find(function(element){
+		if (element.hometown.state === state){
+			return element;
+		}
+	})
+}
+
+console.log(findHometownByState(users, 'CA'));
+
+// Write a function called allLanguages which returns an array of all of the unique values
+
+function allLanguages(array){
+	return array.reduce(function(acc, next){
+		let languages = next.favoriteLanguages;
+
+		languages.forEach(function(language){
+			let languageAlreadyFound = acc.some(function(element){
+				return language === element;
+			})
+
+			if (!languageAlreadyFound) {
+				acc.push(language);
+			}
+		})
+
+		return acc;
+	}, [])
+}
+
+console.log(allLanguages(users))
+
+// Write a function called hasFavoriteEditor which returns a boolean if any of the users have the editor passed in
+
+function hasFavoriteEditor(array, editor){
+	let editors = array.map(function(element){
+		return element.favoriteEditor;
+	})
+
+	return editors.some(function(item){
+		return item === editor;
+	})
+}
+
+console.log(hasFavoriteEditor(users, 'Sublime Text'));
+console.log(hasFavoriteEditor(users, 'Eclipse'));
+
+// Write a function called findByUsername which takes in a string and returns an object in the users array that has that username
+
+function findByUsername(array, name){
+	let user = array.filter(function(element){
+		if (element.username === name) {
+			return element;
+		}
+	})
+
+	return user[0];
+}
+
+console.log(findByUsername(users, 'david'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
