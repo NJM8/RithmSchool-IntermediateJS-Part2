@@ -265,8 +265,40 @@ function findByUsername(array, name){
 console.log(findByUsername(users, 'david'));
 
 
+// Write a function called vowelCount that accepts a string and returns an object with each key being the vowel and the value being the number of times the vowel occurs in the string (the order of keys in the object does not matter).
 
+function vowelCount(string){
+	var stringArray = string.split('');
+	var vowels = 'aeiou';
 
+	return stringArray.reduce(function(obj, next){
+		if (vowels.includes(next)) {
+			obj[next] = (obj[next] || 0) + 1;
+		}
+		return obj;
+	}, {});
+}
+
+console.log(vowelCount('incredible'));
+console.log(vowelCount('awesome'));
+
+// Write a function called removeVowels that accepts a string and returns an array of each character that is not a vowel (y should not count as a vowel for this function).
+
+function removeVowels(string){
+	var stringArray = string.split('');
+	var vowels = 'aeiou';
+
+	return stringArray.reduce(function(array, next){
+		if (!vowels.includes(next)) {
+			array.push(next);
+		}
+		return array;
+	}, []);
+}
+
+console.log(removeVowels('amazing'));
+console.log(removeVowels('fun'));
+console.log(removeVowels('silly'));
 
 
 
