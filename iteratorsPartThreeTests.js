@@ -73,20 +73,54 @@ describe("#getSongsByArtist", function(){
 
 // change xit to it so that your tests are no longer pending!
 
-describe("#summerJamCount", function(){
-  xit("needs you to write some tests!", function(){
-    // WRITE YOUR OWN TESTS!
+describe("#reduceSummerJamCount", function(){
+  it("should return the correct number of summer jams", function(){
+    expect(reduceSummerJamCount(songs)).to.deep.equal(47);
   });
 });
 
 describe("#getTotalDurationInSeconds", function(){
-  xit("needs you to write some tests!", function(){
-    // WRITE YOUR OWN TESTS!
+  it("should return the total duration of all songs", function(){
+    var durationsArray = getDurationsInSeconds(songs);
+    var durations = 0;
+
+    for (let i = 0; i < durationsArray.length; i++) {
+      durations += durationsArray[i];
+    }
+
+    expect(getTotalDurationInSeconds(songs)).to.deep.equal(durations);
   });
 });
 
 describe("#getSongCountByArtist", function(){
-  xit("needs you to write some tests!", function(){
-    // WRITE YOUR OWN TESTS!
+  it("should return the total number of songs by each artist", function(){
+    expect(getSongCountByArtist(songs).OMI).to.deep.equal(1);
+    expect(getSongCountByArtist(songs).Adele).to.deep.equal(4);
   });
+});
+
+describe("#averageWeeksAtNumberOne", function(){
+  it("should return the average that all songs were at number one", function(){
+    var numberOfSongs = songs.length + 1;
+    var totalWeeksAtNumberOne = 0;
+
+    for (let i = 0; i < songs.length; i++) {
+      totalWeeksAtNumberOne += songs[i].weeksAtNumberOne;
+    }
+
+    expect(averageWeeksAtNumberOne(songs)).to.deep.equal(totalWeeksAtNumberOne / numberOfSongs);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
