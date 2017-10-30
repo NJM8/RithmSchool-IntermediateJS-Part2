@@ -15,7 +15,7 @@ $(document).ready(function(){
 	console.log($lis);
 
 	// Select the third li inside of the div with a class of list-container.
-	var $thirdli = $lis[2];
+	var $thirdli = $('.list-container li:nth-child(3)');
 	console.log($thirdli);
 
 	// Select only the last li in each of the uls.
