@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Long list</title>
+</head>
+<body>
+  <div>
+    <a href="http://www.google.com" id="google">Google</a>
+  </div>
+  <div>
+    <a href="http://www.yahoo.com" id="yahoo">Yahoo</a>
+  </div>
+  <div>
+    <a href="http://www.bing.com" id="bing">Bing</a>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    // stopPropagation versus preventDefault. PreventDefault will stop the default action that the element performs, but the event will still propagate up to the parent element, so the click listener still works. StopPropagation will prevent the event from bubbling up to the parent elements. click on each link to see the different behaviour and what gets logged to the console.
+
+    $(function() {
+
+      $("div").on('click', function(e) {
+        console.log("you clicked on a div!");
+      });
+
+      $("#google").on('click', function(e) {
+        e.preventDefault();
+      });
+
+      $("#yahoo").on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      $("#bing").on('click', function(e) {
+        e.stopPropagation();
+      });
+
+    });
+  </script>
+</body>
+</html>

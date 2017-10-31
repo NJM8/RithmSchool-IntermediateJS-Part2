@@ -22,12 +22,12 @@ $(document).ready(function(){
 
 // You can use the css, attr, and data functions to access or modify them. Pass a single arguement to get the value, 2 arguements to set the value.
 
-$(document).ready(function(){
-	$('article').css('background-color', 'red');
-	$('article').css('background-color'); // returns red
-	$('article').attr('style', 'display: flex;');
-	$('article').data('id', '1');
-});
+// $(document).ready(function(){
+// 	$('article').css('background-color', 'red');
+// 	$('article').css('background-color'); // returns red
+// 	$('article').attr('style', 'display: flex;');
+// 	$('article').data('id', '1');
+// });
 
 // The DOM can be traversed using the find, prev, next, parent, and children functions
 
@@ -45,24 +45,24 @@ $(document).ready(function(){
 });
 
 // You can add or remove elements using after, before, append, or prepend.
-$(document).ready(function(){
-	// You can create a new element and set its attributes
-	var $newParagraph = $('<p>');
-	$newParagraph.text('Another article');
-	$newParagraph.css('color', 'red');
+// $(document).ready(function(){
+// 	// You can create a new element and set its attributes
+// 	var $newParagraph = $('<p>');
+// 	$newParagraph.text('Another article');
+// 	$newParagraph.css('color', 'red');
 
-	// Or you can create a new element and pass in an object with its attributes
-	var $anotherParagraph = $('<p>', {
-		text: 'Another approach',
-		css: {
-			color: 'purple',
-			'font-size': '2em' // use quotes due to the hyphen
-		}
-	});
+// 	// Or you can create a new element and pass in an object with its attributes
+// 	var $anotherParagraph = $('<p>', {
+// 		text: 'Another approach',
+// 		css: {
+// 			color: 'purple',
+// 			'font-size': '2em' // use quotes due to the hyphen
+// 		}
+// 	});
 
-	$('article').prepend($newParagraph);
-	$('article').append($anotherParagraph);
-});
+// 	$('article').prepend($newParagraph);
+// 	$('article').append($anotherParagraph);
+// });
 
 // $(document).ready(function(){
 // 	$('article').empty(); // remove all the contents inside an element
@@ -77,7 +77,37 @@ $(document).ready(function(){
 	});
 });
 
+// Animations
 
+// fade, hide, slide, and show
+
+// $(document).ready(function(){
+// 	$('article').hide();
+// 	$('article').fadeIn(2000);
+// 	var toggleShow = true;
+// 	$('article').on('click', function(){
+// 		if (toggleShow) {
+// 			$('#edit_user').show();
+// 		} else {
+// 			$('#edit_user').hide();
+// 		}
+// 		$('.items').slideToggle(500);
+// 		toggleShow = !toggleShow;
+// 	});
+// });
+
+// this is an example of a custom animation
+
+$(document).ready(function(){
+	$('.items').click(function(){
+		$('li').animate({
+			opacity: 0.5,
+			marginLeft: '+=100'
+		}, 5000, function(){
+			$('p').css('font-size', '+=5');
+		});
+	});
+});
 
 
 

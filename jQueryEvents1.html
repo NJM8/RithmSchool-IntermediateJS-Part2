@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul> Ingredients
+        <li>Sugar</li>
+        <li>Milk</li>
+        <li>Eggs</li>
+        <li>Flour</li>
+        <li>Baking Soda</li>
+    </ul>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script type="text/javascript">
+        // event delegation, note the second arguement. This function will always target any li that is added to the ul that is being listened to. 
+        $(document).ready(function(){
+            $('ul').on('click', 'li', function(e){
+                console.log('You just clicked on ' + $(e.target).text());
+            });
+        });
+    </script>
+</body>
+</html>
