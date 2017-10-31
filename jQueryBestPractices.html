@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="container">
+  </div>
+  <div>
+    <ul>
+    Profit/Loss by Day
+      <li>-$10</li>
+      <li>$9</li>
+      <li>$1</li>
+      <li>$1</li>
+      <li>$0</li>
+      <li>$0</li>
+      <li>$10</li>
+      <li>-$7</li>
+      <li>-$6</li>
+      <li>-$9</li>
+     </ul>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  <script>
+    $(function(){
+      // Selector caching, or storing a selector in a variable, means that you only have to search the DOM once for your element. This is something good to do if you will access this element many times.
+      var $container = $("#container");
+
+      $container.text("Hello World!");
+      $container.css('color','red');
+      $container.on("mouseenter", function(e){
+        console.log("moused over!");
+      });
+
+      var $newDiv = $("<div>", {
+        text: "I am a div!",
+        css: {
+          color: "green"
+        }
+      });
+
+      $container.append($newDiv);
+
+      // All jQuery functions can be chained like so:
+      $("div").first().parent().find(".projects").css("color","red").fadeOut(200);
+
+      // this can also be written as:
+
+      $("div")
+          .first()
+          .parent()
+          .find(".projects")
+          .css("color","red")
+          .fadeOut(200);
+      });
+
+      // jQuery also has built in iterators. Below is one to sum all the values in the li elements and log the total
+      $("li").each(function(i,el) {
+        console.log("Day " + i + ": " + $(el).text());
+      });
+
+      // There is also a map function
+      var summary = $("li").map(function(i,el) {
+        return $("<p>", {
+          text: "On day " + i + ", I earned " + $(el).text() 
+        });
+      });
+      // summary is now a jQuery object which contains one p tag for each li
+
+      $("body").append(summary.get()); 
+      // this appends the summary to the page.
+      // The .get method turns summary, a jQuery object, into an array.
+      // Without invoking get, you'll receive a TypeError.
+
+      // and a filter function, note the similarities to the JS equivalents
+      $("li").filter(function(i,el) {
+          return $(el).text()[0] === "-"
+          // returns true if the first character in the text is a minus sign,
+          // i.e. this checks whether or not the number is negative
+      }).css('color','red');
+      // We've chained filter and css together; filter returns to us the 
+      // li's with negative numbers in them, and we then style those li's
+      // to have red text.
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
