@@ -1,69 +1,53 @@
 // refector vanilla JS todo app with jQuery
 
 $(document).ready(function(){
-	var $todos = [];
-	var $addTodoButton = $('#addNewTodo');
-	var input = $('#todoText');
+	var todos = [];
 
-	var $addNewTodo = function($newTodoText, $isCompleted){
-		let newTodo = document.createElement('li'); // create new li element for todo
-		let todoList = document.querySelector('#list'); // grab current todo list
+	var $addNewTodo = function($newTodoText, isCompleted){
+		var $newTodo = $('<li>', { // create new li element with todo
+			text: $newTodoText, 
+			title: 'Click to mark todo as completed or uncompleted, double click to delete'
+		})
 
-		newTodo.appendChild(document.createTextNode(newTodoText)); // put new todo text in li element
-		todoList.appendChild(newTodo); // add new todo to list
-		input.value = ''; // reset input field text
-		canMarkCompleted(newTodo); // call can mark completed to add event listener etc to todo
+		$('#list').append($newTodo); // append new todo to list
+		$('#todoText').val(''); // reset input field text
 
 		if (isCompleted) { // sets saved todos as completed from local storage upon reload
-			newTodo.style.textDecoration = 'line-through';
+			$newTodo.css('text-decoration', 'line-through');
 		}
+
+		$newTodo.dblclick(function(){ // if todo is double clicked delete it
+			$removeTodo($newTodo);
+		})
 	}
 
-	var saveTodo = function(newTodoText){ // saves new todo in local storage
-		todos.push({todo: newTodoText, isCompleted: false}); // add new todo to todos array
+	var $saveTodo = function($newTodoText){ // saves new todo in local storage
+		todos.push({todo: $newTodoText, isCompleted: false}); // add new todo to todos array
 		localStorage.setItem('todos', JSON.stringify(todos)); // save todo array to local storage with JSON
 	}
 
-	var canMarkCompleted = function(todo){
-		todo.title = 'Click to mark todo completed, double click to delete'; // set mouseover text of todo for instructions
-		todo.addEventListener('click', function(){ // adds event listener to todo
-			todo.style.textDecoration = 'line-through'; // set text decoration to line through
-			for (let i = 0; i < todos.length; i++) { // walk through todos array
-				if (todos[i].todo === todo.innerText) { // for each todo in the array, if it matches the passed in todo
-					todos[i].isCompleted = true; // set the isCompleted property to true
-					localStorage.setItem('todos', JSON.stringify(todos)); // overwrite the todos in storage to save this one being completed
-				}
-			}
-			canUnmarkCompleted(todo); // calls can unmarkcompleted to change function of event listener
+	$('#list').on('click', 'li', function(event){
+		var currentTodo = $(event.target).text(); // grab text of clicked todo
+
+		var indexOfSavedTodo = todos.findIndex(function(element){ // get index of clicked todo in storage
+			return element.todo === currentTodo;
 		})
 
-		todo.addEventListener('dblclick', function(){ // calls removeTodo upon double click to remove it from the list
-			removeTodo(todo);
-		})
-	}
+		if (todos[indexOfSavedTodo].isCompleted === false) { // if todo is not currently completed
+			$(event.target).css('text-decoration', 'line-through'); // mark completed
+			todos[indexOfSavedTodo].isCompleted = true; // store completion
+		} else {
+			$(event.target).css('text-decoration', 'none'); // or mark uncompleted
+			todos[indexOfSavedTodo].isCompleted = false; // and store uncompletion
+		}
+		
+		localStorage.setItem('todos', JSON.stringify(todos)); // save current state to storage
+	})
 
-	var canUnmarkCompleted = function(todo){
-		todo.title = 'Click to mark todo uncompleted, double click to delete'; // set mouseover text of todo for instructions
-		todo.addEventListener('click', function(){ // add event listener to todo
-			todo.style.textDecoration = ''; // set text decoration to none
-			for (let i = 0; i < todos.length; i++) { // walk through the todos array
-				if (todos[i].todo === todo.innerText) { // if the todo in the array is the one we are looking for 
-					todos[i].isCompleted = false; // set the isCompleted property to false
-					localStorage.setItem('todos', JSON.stringify(todos)); // overwrite the todos in storage to save this one being not-completed
-				}
-			}
-			canMarkCompleted(todo); // calls canMarkCompleted to change function of event listener
-		})
-
-		todo.addEventListener('dblclick', function(){ // calls removeTodo upon double click to remove it from the list
-			removeTodo(todo);
-		})
-	}
-
-	var removeTodo = function(todo){
-		todo.remove(); // removes the element from the DOM
+	var $removeTodo = function($todo){
+		$todo.remove(); // removes the element from the DOM
 		todos.forEach(function(element, index){ // walks through the todos array and removes the element
-			if (element.todo === todo.innerHTML) {
+			if (element.todo === $todo.text()) {
 				todos.splice(index, 1);
 			}
 		})
@@ -73,33 +57,33 @@ $(document).ready(function(){
 	if (localStorage.getItem('todos')) { // upon page reload, checks for existance of todos in local storgae
 		todos = JSON.parse(localStorage.getItem('todos')); // parses the todos back into the todos array
 		todos.forEach(function(element){
-			addNewTodo(element.todo, element.isCompleted); // walks through all the todos in the array and adds them to the DOM
+			$addNewTodo(element.todo, element.isCompleted); // walks through all the todos in the array and adds them to the DOM
 		})
 	}
 
-	input.addEventListener('keyup', function(event){ // adds an event listener to the input
+	$('input').keyup(function(event){ // adds an event listener to the input
 		event.preventDefault(); // stops default action
 		if (event.keyCode === 13) { // if the key pressed is the enter key
-			document.querySelector('#addNewTodo').click(); // call the click function of the input field
+			$('#addNewTodo').click(); // call the click function of the input field
 		}
 	})
 
-	addTodoButton.onclick = function(){ // set the onclick function of the addTodoButton
-		let newTodoText = input.value; // new todoText is the input value
+	$('#addNewTodo').on('click', function(){
+		let $newTodoText = $('#todoText').val(); // new todoText is the input value
 
-		if (newTodoText === '') { // if nothing was typed in alert the user and exit the function
+		if ($newTodoText === '') { // if nothing was typed in alert the user and exit the function
 			alert('Please input a todo.');
 			return;
 		}
 
-		addNewTodo(newTodoText); // add the todo to the DOM and todos array
-		saveTodo(newTodoText); // save the new todo to local storage
-	}
+		$addNewTodo($newTodoText); // add the todo to the DOM and todos array
+		$saveTodo($newTodoText); // save the new todo to local storage		
+	})
 });
 
 
 
-
+// Previous Vanilla JS version below
 
 // window.onload = function(){
 // 	let todos = [];
