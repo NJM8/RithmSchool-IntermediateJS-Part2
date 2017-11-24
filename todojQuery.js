@@ -6,7 +6,8 @@ $(document).ready(function(){
 	var $addNewTodo = function($newTodoText, isCompleted){
 		var $newTodo = $('<li>', { // create new li element with todo
 			text: $newTodoText, 
-			title: 'Click to mark todo as completed or uncompleted, double click to delete'
+			title: 'Click to mark todo as completed or uncompleted, double click to delete', 
+			class: 'list-group-item'
 		})
 
 		$('#list').append($newTodo); // append new todo to list
