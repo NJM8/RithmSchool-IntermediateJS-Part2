@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>My Favorite Movies</title>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<h2>My Favorite Movies</h2>	
+		</div>
+		<div class="row" id="input-row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-addon">Movie Title</span>
+					<input type="text" name="movie-name" class="form-control" id="movieName" placeholder="The Matrix" aria-label="The Matrix" title="Input the title of your movie here.">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-addon">Movie Rating</span>
+					<input type="text" name="movie-rating" id="movieRating" placeholder="10" aria-label="10" title="Input a rating from 0-10 here.">
+					<span class="input-group-btn">
+						<button class="btn btn-secondary" type="button" id="submit">Submit</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Title
+							<a href="#" class="btn btn-light btn-sm sortButton" id="alphaAsc">
+							<i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></a>
+							<a href="#" class="btn btn-light btn-sm sortButton" id="alphaDesc">
+							<i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></a>
+						</th>
+						<th scope="col">Rating
+							<a href="#" class="btn btn-light btn-sm sortButton" id="numericAsc">
+							<i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></a>
+							<a href="#" class="btn btn-light btn-sm sortButton" id="numericDesc">
+							<i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></a>
+						</th>
+						<th scope="col">Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="favoriteMovies.js"></script>
+</body>
+</html>
