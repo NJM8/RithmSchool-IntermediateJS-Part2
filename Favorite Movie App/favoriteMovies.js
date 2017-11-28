@@ -1,29 +1,44 @@
 $(document).ready(function(){
+	var movies = [];
 
-	function addMovie(movie, rating){
+	function save(movieName, movieRating){
+		movies.push({movie: movieName, rating: movieRating});
+
+		localStorage.setItem('movies', JSON.stringify(movies));
+	}
+
+	function addMovie(movieName, movieRating){
 		var newMovie = $('<tr>', {
-			id: movie
+			id: movieName
 		});
 		var newMovieName = $('<td>', {
-			text: movie
+			text: movieName
 		}) 
 		var newMovieRating = $('<td>', {
-			text: rating
+			text: movieRating
 		})
 		var newMovieDelete = $('<td>', {
 		})
-		var deleteButton = $('<button>', {
-			text: 'delete',
-			class: 'btn btn-secondary btn-sm', 
+		var deleteButton = $('<i>', {
+			class: 'fa fa-trash-o', 
 			click: function(){
-				$('#' + movie).remove();
+				removeMovie($('#' + movieName));
 			}
 		})
+
 		newMovieDelete.append(deleteButton);
-
 		newMovie.append(newMovieName).append(newMovieRating).append(newMovieDelete);
-
 		$('tbody').append(newMovie);
+	}
+
+	var removeMovie = function(movie){
+		movie.remove(); // removes the element from the DOM
+		movies.forEach(function(element, index){ // walks through the movies array and removes the element
+			if (element.movie === movie.children()[0].innerText) {
+				movies.splice(index, 1);
+			}
+		})
+		localStorage.setItem('movies', JSON.stringify(movies)); // overwrites local storage to store the removing of the array
 	}
 
 	$('input').keyup(function(event){ // adds an event listener to the input
@@ -48,6 +63,7 @@ $(document).ready(function(){
 		}
 
 		addMovie(movieName, movieRating);
+		save(movieName, movieRating);
 
 		$('#movieName').val('');
 		$('#movieRating').val('');
@@ -56,7 +72,7 @@ $(document).ready(function(){
 	$('#alphaAsc').on('click', function(event){
 		var movies = $('tbody').children('tr').detach();
 
-		console.log(movies[0].); // figure out how to access proper info for sorting
+		//console.log(movies[0].); // figure out how to access proper info for sorting
 		
 	})
 	$('#alphaDesc').on('click', function(event){
@@ -77,6 +93,13 @@ $(document).ready(function(){
 		console.log('numbericDesc');
 		
 	})
+
+	if (localStorage.getItem('movies')) { // upon page reload, checks for existance of movies in local storage
+		movies = JSON.parse(localStorage.getItem('movies')); // parses the movies back into the movies array
+		movies.forEach(function(element){
+			addMovie(element.movie, element.rating); // walks through all the movies in the array and adds them to the DOM
+		})
+	}
 })
 
 

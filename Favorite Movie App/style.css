@@ -1,3 +1,7 @@
+.container {
+	width: 900px;
+}
+
 h2 {
 	margin: 20px auto;
 	text-align: center;
@@ -10,4 +14,12 @@ h2 {
 
 table {
 	text-align: center;
+}
+
+#alphaAsc, #numericAsc {
+	margin-left: 30px;
+}
+
+#alphaDesc, #numericDesc {
+	margin-left: 10px;
 }
