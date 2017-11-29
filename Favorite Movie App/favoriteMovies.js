@@ -70,28 +70,59 @@ $(document).ready(function(){
 	})
 
 	$('#alphaAsc').on('click', function(event){
-		var movies = $('tbody').children('tr').detach();
+		$('tbody').children('tr').detach();
 
-		//console.log(movies[0].); // figure out how to access proper info for sorting
-		
+		movies.sort(function(a,b){
+			return a.movie > b.movie;
+		})
+
+		movies.forEach(function(element){
+			addMovie(element.movie, element.rating);
+		})
+
+		localStorage.setItem('movies', JSON.stringify(movies));
 	})
+
 	$('#alphaDesc').on('click', function(event){
-		var movies = $('tbody').children('tr').detach();
+		$('tbody').children('tr').detach();
 
-		console.log('alphaDesc');
+		movies.sort(function(a,b){
+			return a.movie < b.movie;
+		})
+
+		movies.forEach(function(element){
+			addMovie(element.movie, element.rating);
+		})
 		
+		localStorage.setItem('movies', JSON.stringify(movies));
 	})
+
 	$('#numericAsc').on('click', function(event){
-		var movies = $('tbody').children('tr').detach();
+		$('tbody').children('tr').detach();
 
-		console.log('numericAsc');
+		movies.sort(function(a,b){
+			return a.rating > b.rating;
+		})
+
+		movies.forEach(function(element){
+			addMovie(element.movie, element.rating);
+		})
 		
+		localStorage.setItem('movies', JSON.stringify(movies));
 	})
-	$('#numericDesc').on('click', function(event){
-		var movies = $('tbody').children('tr').detach();
 
-		console.log('numbericDesc');
+	$('#numericDesc').on('click', function(event){
+		$('tbody').children('tr').detach();
+
+		movies.sort(function(a,b){
+			return a.rating < b.rating;
+		})
+
+		movies.forEach(function(element){
+			addMovie(element.movie, element.rating);
+		})
 		
+		localStorage.setItem('movies', JSON.stringify(movies));
 	})
 
 	if (localStorage.getItem('movies')) { // upon page reload, checks for existance of movies in local storage
