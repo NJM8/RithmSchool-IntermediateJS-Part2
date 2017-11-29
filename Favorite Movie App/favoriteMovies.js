@@ -101,7 +101,7 @@ $(document).ready(function(){
 		$('tbody').children('tr').detach();
 
 		movies.sort(function(a,b){
-			return a.rating > b.rating;
+			return a.rating - b.rating;
 		})
 
 		movies.forEach(function(element){
@@ -115,7 +115,7 @@ $(document).ready(function(){
 		$('tbody').children('tr').detach();
 
 		movies.sort(function(a,b){
-			return a.rating < b.rating;
+			return b.rating - a.rating;
 		})
 
 		movies.forEach(function(element){
