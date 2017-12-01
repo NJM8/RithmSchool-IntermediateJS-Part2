@@ -1,0 +1,73 @@
+1. What is HTTP?
+Hyper Text Transfer Protocol. A defined communication system for computers to talk to each other on the web.
+
+2. What is a URL?
+Uniform Resource Locator. A human readable web address for a resource on the internet.
+
+3. What is TCP?
+Transfer Control Protocol. The communication protocol between hosts.
+
+4. What is IP?
+Internet Protocol. The protocol of how data is sent across a network.
+
+5. What is DNS?
+Domain Name Service. Provides the IP address of a URL.
+
+6. What is idempotent?
+Idempotent refers to an operation that can be repeated many times and does not change the state of the data will not change.
+
+7. What is a query string?
+This allows to you pass key value pairs in a URL. 
+
+8. What is a path or route?
+The path a piece of data or packet must travel to get back to the requestor.
+
+9. List four HTTP Verbs and their use cases.
+GET - A request to receive data from the server.
+POST - A request to create data on the server.
+PUT - A request to modify data on the server.
+DELETE - A request to delete data on the server.
+
+10. What is a client?
+The originator of a request to a server.
+
+11. What is a server?
+A computer that hosts data.
+
+12. What is an HTTP request?
+A message to a server asking for information. 
+
+13. What is an HTTP response?
+The data sent by the server.
+
+14. What is an HTTP header? Give a couple examples of request and response headers you have seen.
+A header is a way to specify what data you are looking for or what format you can recieve it in. 
+
+15. What is REST?
+A REpresentational State Transfer is a way to access and provide data through an API over the internet.
+
+16. What is JSON?
+Javascript Object Notation. A standard way of storing data.
+
+17. What happens when you type in "Hello World" in google.com and press enter?
+A whole bunch of stuff!
+
+18. What does it mean when we say the web is "stateless"?
+It means that each HTTP request is unaware of other HTTP requests. 
+
+19. What is curl?
+A software project and command line tool for transfering information using various protocols.
+
+20. Make a GET request to http://omdbapi.com?t=titanic using curl (your answer should be the curl command required).
+curl http://omdbapi.com?t=titanic
+
+
+
+
+
+
+
+
+
+
+
