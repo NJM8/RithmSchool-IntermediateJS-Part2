@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to XHR and AJAX</title>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		//Using the XHR object, make a request to https://omdbapi.com and choose a title to search by using the query string and key of t.
+
+		var XHR = new XMLHttpRequest();
+		XHR.onreadystatechage = function(){
+			if (XHR.readyState === 4 && XHR.status === 200) {
+				console.log(JSON.parse(XHR.responseText));
+			}
+		}
+		XHR.open('GET', "https://www.omdbapi.com?apikey=bb5f0ed2&t=titanic");
+		XHR.send();
+
+
+		//Using the fetch API, make a request to https://omdbapi.com and choose a title to search by using the query string and key of t.
+
+		fetch('https://www.omdbapi.com?apikey=bb5f0ed2&t=interstellar').then(function(response){
+			return response.json().then(function(data){
+				console.log(data);
+			})
+		})
+
+	</script>
+</body>
+</html>
+
+<!-- Where else have you seen 'asynchronous' code before? Think back to a certain section in Part I of the Intermediate JavaScript course.
+	Closures!
+
+What is XHR?
+	XHR stands for XML Http Request. It is an api that allows data transfer between client and server, it can only be used with JS and allows the response to be received without refreshing the page.
+
+What is XML? Why do we prefer to use JSON?
+	XML stands for Extensible Markup Language. JSON is more preferable because it is faster, less verbose, and more restrictive which leads to greater readability and ease of intrepretation.
+
+What is AJAX?
+	Asychronous Javascript and XML. A set of technologies that allows for a page to make a change to on screen data without refreshing the whole page.
+-->
