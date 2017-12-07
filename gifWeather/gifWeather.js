@@ -14,60 +14,45 @@ $(document).ready(function(){
 			return;
 		}
 
-		let weather = '';
-		let tempurature = 0;
-		let wind = 0;
-
 		$('#query').val('');
 		$('#delete').click();
 
 		// first get lat and long
-		let getLatLng = function(location){
-			let latLng = [];
-			$.ajax({
-				async: false,
-				method: 'GET', 
-				url: 'https://maps.googleapis.com/maps/api/geocode/json', 
-				data: {
-					address: location[0] + location[1], 
-					key: 'AIzaSyAa2Fm1SPYpC2qkif3suYQyLYGtBthsYtQ'
-				},
-				success:function(response){
-					latLng.push(response.results[0].geometry.location.lat);
-					latLng.push(response.results[0].geometry.location.lng);
-				}
-			})
-			return latLng;
-		}
 
-		let coordinatePostion = getLatLng(location);
+		$.when($.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + location[0] + location[1] + '&key=AIzaSyAa2Fm1SPYpC2qkif3suYQyLYGtBthsYtQ'))
+			.then(function(response){
+				let latLng = [];
+				latLng.push(response.results[0].geometry.location.lat);
+				latLng.push(response.results[0].geometry.location.lng);
 
-		// then get weather conditions from fcc 
+				// then get weather conditions from FCC weather api
 
-		$.get("https://fcc-weather-api.glitch.me/api/current?lat=" + coordinatePostion[0] + "&lon=" + coordinatePostion[1]).then(function(data){
-			console.log(data);
-		})
+				$.when($.get("https://fcc-weather-api.glitch.me/api/current?lat=" + latLng[0] + "&lon=" + latLng[1]))
+					.then(function(response){
+						let weather = response.weather[0].description;
+						let tempurature = response.main.temp;
+						let wind = response.wind.speed;
 
-		// then find gifs
+						// then find gifs
 
-		$.get("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=5")
-		.then(function(data){
-			var randNum = Math.floor(Math.random() * 5);
-			var $newGif = $("<iframe>", {
-				src: data.data[randNum].embed_url, 
-				width: '300', 
-				height: '300', 
-				class: 'giphy-embed', 
-				frameBorder: '0'
-			});
-			$('#gifs').append($newGif);
-		});
+						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + weather + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=5"))
+							.then(function(data){
+								var randNum = Math.floor(Math.random() * 5);
+								var $newGif = $("<iframe>", {
+									src: data.data[randNum].embed_url, 
+									width: '300', 
+									height: '300', 
+									class: 'giphy-embed', 
+									frameBorder: '0'
+								});
+								$('#gifs').append($newGif);
+							});
+					});
+			});	
+
 	});
 
 	$('#delete').on('click', function(){
 		$('.giphy-embed').remove();
 	})
-
-
-
 })
