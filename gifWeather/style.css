@@ -5,6 +5,7 @@ body {
 h1, p {
 	margin: 20px auto;
 	color: #F8F8F8;
+	text-align: center;
 }
 
 @media (min-width: 1200px) {

@@ -73,9 +73,9 @@ $(document).ready(function(){
 
 						// then find gifs
 
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + weather + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=5"))
+						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + weather + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
 							.then(function(data){
-								var randNum = Math.floor(Math.random() * 5);
+								var randNum = Math.floor(Math.random() * 25);
 								var $newGif = $("<iframe>", {
 									src: data.data[randNum].embed_url, 
 									width: '300', 
@@ -84,11 +84,13 @@ $(document).ready(function(){
 									frameBorder: '0', 
 								});
 								$('#gifs').append($newGif);
+
+								addDescription(weather, 'Weather: ');
 							});
 
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + tempuratureDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=5"))
+						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + tempuratureDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
 							.then(function(data){
-								var randNum = Math.floor(Math.random() * 5);
+								var randNum = Math.floor(Math.random() * 25);
 								var $newGif = $("<iframe>", {
 									src: data.data[randNum].embed_url, 
 									width: '300', 
@@ -97,11 +99,13 @@ $(document).ready(function(){
 									frameBorder: '0'
 								});
 								$('#gifs').append($newGif);
+
+								addDescription(tempuratureDescription, 'Tempurature: ');
 							});
 
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + windDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=5"))
+						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + windDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
 							.then(function(data){
-								var randNum = Math.floor(Math.random() * 5);
+								var randNum = Math.floor(Math.random() * 25);					
 								var $newGif = $("<iframe>", {
 									src: data.data[randNum].embed_url, 
 									width: '300', 
@@ -110,14 +114,28 @@ $(document).ready(function(){
 									frameBorder: '0'
 								});
 								$('#gifs').append($newGif);
+
+								addDescription(windDescription, 'Wind: ');
 							});
 					});
 			});	
 
 	});
 
+	function addDescription(desc, label){
+		var newDescriptionDiv = $('<div>', {
+			class: 'col-4 description' 
+		})
+		var newDescriptionP = $('<p>', {
+			text: label + desc
+		})
+		newDescriptionDiv.append(newDescriptionP);
+		$('#descriptions').append(newDescriptionDiv);
+	}
+
 	$('#delete').on('click', function(){
 		$('.giphy-embed').remove();
+		$('.description').remove();
 	})
 
 })
