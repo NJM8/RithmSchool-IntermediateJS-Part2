@@ -73,56 +73,44 @@ $(document).ready(function(){
 
 						// then find gifs
 
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + weather + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
-							.then(function(data){
-								var randNum = Math.floor(Math.random() * 25);
-								var $newGif = $("<iframe>", {
-									src: data.data[randNum].embed_url, 
-									width: '300', 
-									height: '300', 
-									class: 'giphy-embed', 
-									frameBorder: '0', 
-								});
-								$('#gifs').append($newGif);
-
-								addDescription(weather, 'Weather: ');
-							});
-
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + tempuratureDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
-							.then(function(data){
-								var randNum = Math.floor(Math.random() * 25);
-								var $newGif = $("<iframe>", {
-									src: data.data[randNum].embed_url, 
-									width: '300', 
-									height: '300', 
-									class: 'giphy-embed', 
-									frameBorder: '0'
-								});
-								$('#gifs').append($newGif);
-
-								addDescription(tempuratureDescription, 'Tempurature: ');
-							});
-
-						$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + windDescription + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
-							.then(function(data){
-								var randNum = Math.floor(Math.random() * 25);					
-								var $newGif = $("<iframe>", {
-									src: data.data[randNum].embed_url, 
-									width: '300', 
-									height: '300', 
-									class: 'giphy-embed', 
-									frameBorder: '0'
-								});
-								$('#gifs').append($newGif);
-
-								addDescription(windDescription, 'Wind: ');
-							});
+						getGifs(weather, 'Weather: ');
+						getGifs(tempuratureDescription, 'Tempurature: ');
+						getGifs(windDescription, 'Wind: ');
 					});
+			})
+			.fail(error => {
+				alert("Oops, we couldn't find that location");
+				console.log(error);
 			});	
-
 	});
 
-	function addDescription(desc, label){
+function getGifs(description, label){
+	$.when($.get("http://api.giphy.com/v1/gifs/search?q=" + description + "&api_key=fLBc8pLLd3UMGWIvHv1hRu2tlwKbGBvE&limit=25"))
+		.then(function(data){
+			const randNum = Math.floor(Math.random() * 25);
+			const $newGif = $("<iframe>", {
+				src: data.data[randNum].embed_url, 
+				width: '300', 
+				height: '300', 
+				class: 'giphy-embed', 
+				frameBorder: '0'
+			});
+			$('#gifs').append($newGif);
+			
+			addDescription(description, label);
+		})
+		.fail(error => {
+			const $newGif = $("<p>", {
+				text: "Unable to find a great Gif", 
+				width: '300', 
+				height: '300'
+			});
+			$('#gifs').append($newGif);
+			console.log(error);
+		});
+}	
+
+function addDescription(desc, label){
 		var newDescriptionDiv = $('<div>', {
 			class: 'col-4 description' 
 		})
@@ -137,5 +125,4 @@ $(document).ready(function(){
 		$('.giphy-embed').remove();
 		$('.description').remove();
 	})
-
 })
